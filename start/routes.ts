@@ -16,6 +16,7 @@ const RegisterController = () => import('#controllers/auth/register_controller')
 const ForgotPasswordController = () => import('#controllers/auth/forgot_password_controller')
 const ProfileController = () => import('#controllers/settings/profile_controller')
 const AccountController = () => import('#controllers/settings/account_controller')
+const WellbeingController = () => import('#controllers/wellbeing_controller')
 
 router.on('/').render('pages/home')
 
@@ -75,3 +76,9 @@ router
   .put('/settings/profile', [ProfileController, 'update'])
   .as('settings.profile.update')
   .use(middleware.auth())
+
+//* WELLBEING
+
+router.get('/wellbeing', [WellbeingController, 'show']).as('wellbeing.show')
+
+router.post('/wellbeing', [WellbeingController, 'store']).as('wellbeing.store')
