@@ -5,10 +5,6 @@ export default {
   ],
   theme: {
     extend: {
-      /**
-       * Default Home Page Theme
-       * Adjust to match your project's needs
-       */
       fontFamily: {
         sans: [ "Instrument Sans", "sans-serif" ]
       },
@@ -17,6 +13,12 @@ export default {
           DEFAULT: "#5A45FF",
           lighter: "#a599ff"
         },
+        // New color palette
+        sage: "#619b8a",    // Muted teal
+        lime: "#a1c181",    // Soft green
+        gold: "#fcca46",    // Warm yellow
+        coral: "#fe7f2d",   // Vibrant orange
+        navy: "#233d4d",    // Dark blue
         sand: {
           1: "var(--sand-1)",
           2: "var(--sand-2)",
