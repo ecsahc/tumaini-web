@@ -1,10 +1,15 @@
 @let(tag = $props.href ? 'a' : 'button')
-@let(variant = $props.variant ?? 'dark')
+@let(variant = $props.variant ?? 'navy')
 @let(variants = new Map([
   ['dark', 'bg-black text-white hover:bg-gray-900 focus:bg-gray-900'],
   ['ghost', 'bg-white text-gray-900 hover:bg-gray-100 focus:bg-gray-100'],
   ['blue', 'bg-blue-600 text-white hover:bg-blue-700 focus:bg-blue-700'],
   ['red', 'bg-red-600 text-white hover:bg-red-700 focus:bg-red-700'],
+  ['sage', 'bg-sage text-white hover:bg-sage/90 focus:bg-sage/90'],
+  ['lime', 'bg-lime text-navy hover:bg-lime/90 focus:bg-lime/90'],
+  ['gold', 'bg-gold text-navy hover:bg-gold/90 focus:bg-gold/90'],
+  ['coral', 'bg-coral text-white hover:bg-coral/90 focus:bg-coral/90'],
+  ['navy', 'bg-navy text-white hover:bg-navy/90 focus:bg-navy/90'],
 ]))
 @let(baseClasses = `py-2 px-3 inline-flex items-center justify-center gap-x-2 text-sm font-medium rounded border border-transparent focus:outline-none disabled:opacity-50 disabled:pointer-events-none ${variants.get(variant)}`)
 

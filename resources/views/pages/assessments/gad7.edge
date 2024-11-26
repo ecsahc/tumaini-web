@@ -1,0 +1,38 @@
+@layout({ title: 'GAD-7 Assessment' })
+  @let(questions = [
+    { name: 'feeling_nervous', label: 'Feeling nervous, anxious, or on edge' },
+    { name: 'cant_control_worrying', label: 'Not being able to stop or control worrying' },
+    { name: 'worrying_too_much', label: 'Worrying too much about different things' },
+    { name: 'trouble_relaxing', label: 'Trouble relaxing' },
+    { name: 'being_restless', label: 'Being so restless that it is hard to sit still' },
+    { name: 'easily_annoyed', label: 'Becoming easily annoyed or irritable' },
+    { name: 'feeling_afraid', label: 'Feeling afraid as if something awful might happen' }
+  ])
+
+  @let(options = [
+    { value: 0, title: 'Not at all', description: '0' },
+    { value: 1, title: 'Several days', description: '1' },
+    { value: 2, title: 'More than half the days', description: '2' },
+    { value: 3, title: 'Nearly every day', description: '3' }
+  ])
+
+  <div class="max-w-2xl mx-auto px-4 py-8">
+    @form({ action: route('assessments.gad7.store') })
+      <h1 class="text-2xl font-bold mb-6 text-navy-900">Over the last 2 weeks, how often have you been bothered by the following problems?</h1>
+
+      @each(question in questions)
+        @!form.radio({
+          name: question.name,
+          label: question.label,
+          options
+        })
+      @end
+
+      <div class="mt-6 flex justify-end">
+        @button({ type: 'submit' })
+          Submit
+        @end
+      </div>
+    @end
+  </div>
+@end

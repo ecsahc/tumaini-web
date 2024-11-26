@@ -1,5 +1,6 @@
 import { HttpContext } from '@adonisjs/core/http'
 import Mood from '#enums/mood'
+import { wellbeingValidator } from '#validators/wellbeing'
 
 export default class WellbeingController {
   async show({ view }: HttpContext) {
@@ -30,13 +31,13 @@ export default class WellbeingController {
   }
 
   async store({ request, response }: HttpContext) {
-    const { mood } = request.only(['mood'])
+    const { mood } = await request.validateUsing(wellbeingValidator)
 
     switch (mood) {
       case Mood.ANXIOUS:
-        return response.redirect().toRoute('assessments.gad7')
+        return response.redirect().toRoute('assessments.gad7.show')
       case Mood.LOW:
-        return response.redirect().toRoute('assessments.phq9')
+        return response.redirect().toRoute('assessments.phq9.show')
       default:
         return response.redirect().back()
     }

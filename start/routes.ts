@@ -17,6 +17,7 @@ const ForgotPasswordController = () => import('#controllers/auth/forgot_password
 const ProfileController = () => import('#controllers/settings/profile_controller')
 const AccountController = () => import('#controllers/settings/account_controller')
 const WellbeingController = () => import('#controllers/wellbeing_controller')
+const AssessmentsController = () => import('#controllers/assessments_controller')
 
 router.on('/').render('pages/home')
 
@@ -77,8 +78,27 @@ router
   .as('settings.profile.update')
   .use(middleware.auth())
 
-//* WELLBEING
+//* WELLBEING -> WELLBEING
 
 router.get('/wellbeing', [WellbeingController, 'show']).as('wellbeing.show')
 
 router.post('/wellbeing', [WellbeingController, 'store']).as('wellbeing.store')
+
+//* Assessment routes
+router
+  .group(() => {
+    router
+      .post('/assessments/phq9', [AssessmentsController, 'storePhq9'])
+      .as('assessments.phq9.store')
+    router
+      .post('/assessments/gad7', [AssessmentsController, 'storeGad7'])
+      .as('assessments.gad7.store')
+
+    router
+      .get('/assessments/phq9/', [AssessmentsController, 'showPhq9'])
+      .as('assessments.phq9.show')
+    router
+      .get('/assessments/gad7/', [AssessmentsController, 'showGad7'])
+      .as('assessments.gad7.show')
+  })
+  .middleware([middleware.auth()])

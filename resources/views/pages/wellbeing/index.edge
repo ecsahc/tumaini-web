@@ -1,37 +1,18 @@
 @layout({ title: 'Wellbeing Assessment' })
-    <div class="max-w-2xl mx-auto px-4 py-8">
-      <h1 class="text-2xl font-bold mb-4">Well Being Assessment</h1>
-      <p class="mb-6 text-gray-600">
-        Please respond to the following question to help us understand how you are feeling currently. 
-        Your response will guide us in providing the appropriate first aid measures and resources.
-      </p>
+  <div class="max-w-2xl mx-auto px-4 py-8">
+    @form({ action: route('wellbeing.store') })
+      @!form.radio({
+        name: 'mood',
+        label: 'How are you feeling today?',
+        options: moodOptions,
+        value: flashMessages.get('mood')
+      })
 
-      @form({ action: route('wellbeing.store') })
-        <div x-data="{ selectedMood: null, moodOptions: {{ JSON.stringify(moodOptions) }} }" 
-             class="space-y-3">
-          <h2 class="text-lg font-semibold mb-4">How are you feeling today?</h2>
-          
-          <template x-for="(option, index) in moodOptions" :key="index">
-            <label @click="selectedMood=option.value" 
-                   class="flex items-start p-5 space-x-3 bg-white border rounded-md shadow-sm hover:bg-gray-50 border-neutral-200/70">
-              <input type="radio" 
-                     name="mood" 
-                     :value="option.value" 
-                     class="text-gray-900 translate-y-px focus:ring-gray-700" />
-              <span class="relative flex flex-col text-left space-y-1.5 leading-none">
-                <span x-text="option.title" class="font-semibold"></span>
-                <span x-text="option.description" class="text-sm opacity-50"></span>
-              </span>
-            </label>
-          </template>
-
-          <div class="mt-6 flex justify-end">
-            @button({ type: 'submit' })
-              Continue
-            @end
-          </div>
-        </div>
-      @end
-    </div>
-  @end
+      <div class="mt-6 flex justify-end">
+        @button({ type: 'submit' })
+          Continue
+        @end
+      </div>
+    @end
+  </div>
 @end

@@ -1,0 +1,40 @@
+@layout({ title: 'PHQ-9 Assessment' })
+  @let(questions = [
+    { name: 'little_interest', label: 'Little interest or pleasure in doing things' },
+    { name: 'feeling_down', label: 'Feeling down, depressed, or hopeless' },
+    { name: 'trouble_sleeping', label: 'Trouble falling or staying asleep, or sleeping too much' },
+    { name: 'feeling_tired', label: 'Feeling tired or having little energy' },
+    { name: 'poor_appetite', label: 'Poor appetite or overeating' },
+    { name: 'feeling_bad', label: 'Feeling bad about yourself - or that you are a failure or have let yourself or your family down' },
+    { name: 'trouble_concentrating', label: 'Trouble concentrating on things, such as reading the newspaper or watching television' },
+    { name: 'moving_slowly', label: 'Moving or speaking so slowly that other people could have noticed. Or the opposite - being so fidgety or restless that you have been moving around a lot more than usual' },
+    { name: 'thoughts_of_death', label: 'Thoughts that you would be better off dead, or of hurting yourself' }
+  ])
+
+  @let(options = [
+    { value: 0, title: 'Not at all', description: '0' },
+    { value: 1, title: 'Several days', description: '1' },
+    { value: 2, title: 'More than half the days', description: '2' },
+    { value: 3, title: 'Nearly every day', description: '3' }
+  ])
+
+  <div class="max-w-2xl mx-auto px-4 py-8">
+    @form({ action: route('assessments.phq9.store') })
+      <h1 class="text-2xl font-bold mb-6 text-navy-900">Over the last 2 weeks, how often have you been bothered by any of the following problems?</h1>
+
+      @each(question in questions)
+        @!form.radio({
+          name: question.name,
+          label: question.label,
+          options
+        })
+      @end
+
+      <div class="mt-6 flex justify-end">
+        @button({ type: 'submit' })
+          Submit
+        @end
+      </div>
+    @end
+  </div>
+@end
