@@ -16,8 +16,10 @@ const RegisterController = () => import('#controllers/auth/register_controller')
 const ForgotPasswordController = () => import('#controllers/auth/forgot_password_controller')
 const ProfileController = () => import('#controllers/settings/profile_controller')
 const AccountController = () => import('#controllers/settings/account_controller')
-const WellbeingController = () => import('#controllers/wellbeing_controller')
-const AssessmentsController = () => import('#controllers/assessments_controller')
+const WellbeingController = () => import('#controllers/wellbeing/index_controller')
+const Phq9Controller = () => import('#controllers/assessment/phq_9_controller')
+const Gad7Controller = () => import('#controllers/assessment/gad_7_controller')
+const PsqController = () => import('#controllers/assessment/psq_controller')
 
 router.on('/').render('pages/home')
 
@@ -78,31 +80,21 @@ router
   .as('settings.profile.update')
   .use(middleware.auth())
 
-//* WELLBEING -> WELLBEING
+//* WELLBEING -> INDEX
 
 router.get('/wellbeing', [WellbeingController, 'show']).as('wellbeing.show')
 
 router.post('/wellbeing', [WellbeingController, 'store']).as('wellbeing.store')
 
-//* Assessment routes
+//* ASSESSMENTS -> PHQ9, GAD7, PSQ
 router
   .group(() => {
-    router
-      .post('/assessments/phq9', [AssessmentsController, 'storePhq9'])
-      .as('assessments.phq9.store')
-    router
-      .post('/assessments/gad7', [AssessmentsController, 'storeGad7'])
-      .as('assessments.gad7.store')
-    router
-      .post('/assessments/psq/', [AssessmentsController, 'storePsq'])
-      .as('assessments.psq.store')
+    router.post('/assessments/phq9', [Phq9Controller, 'store']).as('assessments.phq9.store')
+    router.post('/assessments/gad7', [Gad7Controller, 'store']).as('assessments.gad7.store')
+    router.post('/assessments/psq/', [PsqController, 'store']).as('assessments.psq.store')
 
-    router
-      .get('/assessments/phq9/', [AssessmentsController, 'showPhq9'])
-      .as('assessments.phq9.show')
-    router
-      .get('/assessments/gad7/', [AssessmentsController, 'showGad7'])
-      .as('assessments.gad7.show')
-    router.get('/assessments/psq/', [AssessmentsController, 'showPsq']).as('assessments.psq.show')
+    router.get('/assessments/phq9/', [Phq9Controller, 'show']).as('assessments.phq9.show')
+    router.get('/assessments/gad7/', [Gad7Controller, 'show']).as('assessments.gad7.show')
+    router.get('/assessments/psq/', [PsqController, 'show']).as('assessments.psq.show')
   })
   .middleware([middleware.auth()])
