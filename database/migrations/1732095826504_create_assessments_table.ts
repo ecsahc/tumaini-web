@@ -8,7 +8,7 @@ export default class extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
       table.integer('user_id').unsigned().references('users.id')
-      table.enum('type', ['PHQ9', 'GAD7'])
+      table.enum('type', ['PHQ9', 'GAD7', 'PSQ']).notNullable()
       table.integer('score')
       table.json('answers')
       table.timestamp('created_at')

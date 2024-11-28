@@ -93,6 +93,9 @@ router
     router
       .post('/assessments/gad7', [AssessmentsController, 'storeGad7'])
       .as('assessments.gad7.store')
+    router
+      .post('/assessments/psq/', [AssessmentsController, 'storePsq'])
+      .as('assessments.psq.store')
 
     router
       .get('/assessments/phq9/', [AssessmentsController, 'showPhq9'])
@@ -100,5 +103,6 @@ router
     router
       .get('/assessments/gad7/', [AssessmentsController, 'showGad7'])
       .as('assessments.gad7.show')
+    router.get('/assessments/psq/', [AssessmentsController, 'showPsq']).as('assessments.psq.show')
   })
   .middleware([middleware.auth()])

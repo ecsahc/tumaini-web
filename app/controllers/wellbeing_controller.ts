@@ -25,6 +25,11 @@ export default class WellbeingController {
         description: 'I am feeling down or depressed',
         value: Mood.LOW,
       },
+      {
+        title: 'Unusual Thoughts',
+        description: 'I am having unusual thoughts',
+        value: Mood.UNUSUAL_THOUGHTS,
+      },
     ]
 
     return view.render('pages/wellbeing/index', { moodOptions })
@@ -38,6 +43,8 @@ export default class WellbeingController {
         return response.redirect().toRoute('assessments.gad7.show')
       case Mood.LOW:
         return response.redirect().toRoute('assessments.phq9.show')
+      case Mood.UNUSUAL_THOUGHTS:
+        return response.redirect().toRoute('assessments.psq.show')
       default:
         return response.redirect().back()
     }

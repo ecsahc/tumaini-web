@@ -1,0 +1,34 @@
+@layout({ title: 'PSQ Assessment' })
+  @let(questions = [
+    { name: 'hypomania', label: 'Over the past year, have there been times when you felt very happy indeed without a break for days on end?' },
+    { name: 'thought_insertion', label: 'Over the past year, have you ever felt that your thoughts were directly interfered with or controlled by some outside force or person?' },
+    { name: 'paranoia', label: 'Over the past year, have there been times when you felt that people were deliberately acting to harm you or your interests?' },
+    { name: 'strange_experiences', label: 'Over the past year, have there been times when you felt that something strange was going on?' },
+    { name: 'hallucinations', label: 'Over the past year, have there been times when you heard or saw things that other people could not?' }
+  ])
+
+  @let(options = [
+    { value: 0, title: 'No', description: '0' },
+    { value: 1, title: 'Yes', description: '1' }
+  ])
+
+  <div class="max-w-2xl mx-auto px-4 py-8">
+    @form({ action: route('assessments.psq.store') })
+      <h1 class="text-2xl font-bold mb-6 text-navy-900">Please answer the following questions about your experiences:</h1>
+
+      @each(question in questions)
+        @!form.radio({
+          name: question.name,
+          label: question.label,
+          options
+        })
+      @end
+
+      <div class="mt-6 flex justify-end">
+        @button({ type: 'submit' })
+          Submit
+        @end
+      </div>
+    @end
+  </div>
+@end

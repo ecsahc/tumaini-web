@@ -10,7 +10,7 @@ export default class Assessment extends BaseModel {
   declare userId: number
 
   @column()
-  declare type: 'PHQ9' | 'GAD7'
+  declare type: 'PHQ9' | 'GAD7' | 'PSQ'
 
   @column()
   declare score: number

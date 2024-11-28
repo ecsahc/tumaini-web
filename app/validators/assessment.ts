@@ -25,3 +25,13 @@ export const gad7Validator = vine.compile(
     feeling_afraid: vine.number().range([0, 3]),
   })
 )
+
+export const psqValidator = vine.compile(
+  vine.object({
+    hypomania: vine.number().range([0, 1]),
+    thought_insertion: vine.number().range([0, 1]),
+    paranoia: vine.number().range([0, 1]),
+    strange_experiences: vine.number().range([0, 1]),
+    hallucinations: vine.number().range([0, 1]),
+  })
+)
