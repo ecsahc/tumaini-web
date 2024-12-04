@@ -1,6 +1,7 @@
 import { HttpContext } from '@adonisjs/core/http'
 import Mood from '#enums/mood'
 import { wellbeingValidator } from '#validators/wellbeing'
+import WellnessTestAttempt from '#models/wellness_test_attempt'
 
 export default class WellbeingController {
   async show({ view }: HttpContext) {
@@ -35,18 +36,41 @@ export default class WellbeingController {
     return view.render('pages/wellbeing/index', { moodOptions })
   }
 
-  async store({ request, response }: HttpContext) {
-    const { mood } = await request.validateUsing(wellbeingValidator)
+  async store({ request, response, auth }: HttpContext) {
+    try {
+      const { mood } = await request.validateUsing(wellbeingValidator)
 
-    switch (mood) {
-      case Mood.ANXIOUS:
-        return response.redirect().toRoute('assessments.gad7.show')
-      case Mood.LOW:
-        return response.redirect().toRoute('assessments.phq9.show')
-      case Mood.UNUSUAL_THOUGHTS:
-        return response.redirect().toRoute('assessments.psq.show')
-      default:
-        return response.redirect().back()
+      switch (mood) {
+        case Mood.ANXIOUS:
+          await WellnessTestAttempt.create({
+            userId: auth.user!.id,
+            mood: Mood.ANXIOUS,
+          })
+          console.log(mood)
+          // console.log(userId)
+          return response.redirect().toRoute('assessments.gad7.show')
+        case Mood.LOW:
+          await WellnessTestAttempt.create({
+            userId: auth.user!.id,
+            mood: Mood.LOW,
+          })
+          console.log(mood)
+          // console.log(userId)
+          return response.redirect().toRoute('assessments.phq9.show')
+        case Mood.UNUSUAL_THOUGHTS:
+          await WellnessTestAttempt.create({
+            userId: auth.user!.id,
+            mood: Mood.UNUSUAL_THOUGHTS,
+          })
+          console.log(mood)
+          // console.log(userId)
+          return response.redirect().toRoute('assessments.psq.show')
+        default:
+          return response.redirect().back()
+      }
+    } catch (error) {
+      console.error('Error storing wellness test attempt:', error)
+      return response.redirect().back()
     }
   }
 }

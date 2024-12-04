@@ -82,9 +82,12 @@ router
 
 //* WELLBEING -> INDEX
 
-router.get('/wellbeing', [WellbeingController, 'show']).as('wellbeing.show')
-
-router.post('/wellbeing', [WellbeingController, 'store']).as('wellbeing.store')
+router
+  .group(() => {
+    router.get('/wellbeing', [WellbeingController, 'show']).as('wellbeing.show')
+    router.post('/wellbeing', [WellbeingController, 'store']).as('wellbeing.store')
+  })
+  .middleware([middleware.auth()])
 
 //* ASSESSMENTS -> PHQ9, GAD7, PSQ
 router
